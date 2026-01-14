@@ -1,0 +1,12 @@
+Qlik2Review.qext
+src/index.js
+src/definition.js
+src/template.html
+src/styles.css
+src/services/engine.js
+src/services/analyzer.js
+src/services/ai-providers/openai.js
+src/services/ai-providers/anthropic.js
+src/services/ai-providers/gemini.js
+src/utils/object-filter.js
+src/utils/prompt-builder.js
