@@ -27,3 +27,10 @@ npm-debug.log*
 # API Keys (never commit!)
 **/secrets.json
 **/api-keys.json
+*.zip
+.claude/
+
+# Local docs (not for git)
+CLAUDE.md
+IMPROVEMENT_PLAN.md
+*BACKUP*

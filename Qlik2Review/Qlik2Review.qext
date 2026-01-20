@@ -2,14 +2,26 @@
   "name": "Qlik2Review",
   "description": "AI-powered sheet and object analysis with multi-provider support",
   "type": "visualization",
-  "version": "1.0.0",
+  "version": "3.9.3",
   "icon": "puzzle",
-  "author": "undsoul",
+  "author": "MuchachoAI",
   "homepage": "https://github.com/undsoul/Qlik2Review",
-  "keywords": "ai, analysis, summary, openai, anthropic, gemini",
+  "keywords": [
+    "qlik-sense",
+    "ai",
+    "analysis",
+    "summary",
+    "openai",
+    "anthropic",
+    "gemini"
+  ],
   "license": "MIT",
   "repository": "https://github.com/undsoul/Qlik2Review",
   "dependencies": {
-    "qlik-api": ">=1.0.0"
-  }
+    "qlik-sense": ">=3.2.x"
+  },
+  "supportsSnapshot": false,
+  "exportEnabled": false,
+  "importEnabled": false,
+  "supportsProxyMode": true
 }

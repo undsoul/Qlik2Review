@@ -1,0 +1,14 @@
+Qlik2Review.qext
+Qlik2Review.js
+definition.js
+template.html
+styles.css
+lib/engine.js
+lib/analyzer.js
+lib/openai.js
+lib/anthropic.js
+lib/gemini.js
+lib/object-filter.js
+lib/prompt-builder.js
+lib/logger.js
+lib/chart-templates.js
