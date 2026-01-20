@@ -1,5 +1,8 @@
 # Qlik2Review
 
+<img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/6c387774-3be7-4f71-b29b-bae6d289d6e9" />
+
+
 AI-powered sheet analysis extension for Qlik Sense with multi-provider support.
 
 ![Version](https://img.shields.io/badge/version-3.9.3-green)
