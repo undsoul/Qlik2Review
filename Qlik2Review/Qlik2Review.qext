@@ -2,7 +2,7 @@
   "name": "Qlik2Review",
   "description": "AI-powered sheet and object analysis with multi-provider support",
   "type": "visualization",
-  "version": "3.9.3",
+  "version": "3.9.4",
   "icon": "puzzle",
   "author": "MuchachoAI",
   "homepage": "https://github.com/undsoul/Qlik2Review",

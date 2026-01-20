@@ -617,6 +617,59 @@
   white-space: pre-line;
 }
 
+/* Section headers in sheet summary (📊 Overview:, 📈 Key Trends:, etc.) */
+.q2r-summary-content .q2r-section-header {
+  margin-top: 14px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.q2r-summary-content .q2r-section-header:first-child {
+  margin-top: 0;
+}
+
+.q2r-summary-content .q2r-section-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #009845;
+}
+
+/* Bullet lists in summary */
+.q2r-summary-content .q2r-bullet-list {
+  margin: 6px 0;
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.q2r-summary-content .q2r-bullet-list li {
+  position: relative;
+  padding-left: 8px;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.q2r-summary-content .q2r-bullet-list li::before {
+  content: "•";
+  position: absolute;
+  left: -12px;
+  color: #009845;
+  font-weight: bold;
+}
+
+/* Numbered lists in summary */
+.q2r-summary-content .q2r-numbered-list {
+  margin: 6px 0;
+  padding-left: 24px;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+
+.q2r-summary-content .q2r-numbered-list li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+  padding-left: 4px;
+}
+
 /* Dive Deeper Section */
 .q2r-dive-deeper {
   margin-bottom: 16px;

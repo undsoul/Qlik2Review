@@ -1761,14 +1761,87 @@ define([
     if (!text) return '';
     // First escape HTML
     var escaped = escapeHtml(text);
-    // Then convert **bold** to <strong>
-    escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    // Convert *italic* to <em>
-    escaped = escaped.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-    // Clean up any orphan ** or * from truncation (handles cached old data)
-    escaped = escaped.replace(/\*\*[^<]*$/g, '');
-    escaped = escaped.replace(/\*[^<]*$/g, '');
-    return escaped;
+
+    // Pre-process: Split inline numbered items onto separate lines
+    // Matches patterns like "1) Item text 2) Next item" or "1. Item 2. Next"
+    escaped = escaped.replace(/(\s)(\d+[\)\.]\s*\*{0,2}[A-Z])/g, '\n$2');
+
+    // Process line by line for better structure
+    var lines = escaped.split('\n');
+    var result = [];
+    var inList = false;
+    var listType = null; // 'ul' or 'ol'
+
+    lines.forEach(function(line) {
+      var trimmed = line.trim();
+
+      // Section headers with emojis - can be "📊 Overview:" alone OR "📊 Overview: content here"
+      var headerMatch = trimmed.match(/^((?:📊|📈|📉|⚠️|💡|✅|🎯|📋|🔍|💰|📌|🚀|⭐|🔔|📍|💼|📑|🏆|📝|🔑)\s*[^:]+:)\s*(.*)/);
+      if (headerMatch) {
+        if (inList) {
+          result.push('</' + listType + '>');
+          inList = false;
+        }
+        var header = headerMatch[1];
+        var content = headerMatch[2] || '';
+        // Apply bold to content
+        content = content.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        result.push('<div class="q2r-section-header"><span class="q2r-section-title">' + header + '</span> ' + content + '</div>');
+      }
+      // Numbered items (1) or 1. format)
+      else if (/^\d+[\)\.]\s+/.test(trimmed)) {
+        if (inList && listType !== 'ol') {
+          result.push('</' + listType + '>');
+          inList = false;
+        }
+        if (!inList) {
+          result.push('<ol class="q2r-numbered-list">');
+          inList = true;
+          listType = 'ol';
+        }
+        var itemText = trimmed.replace(/^\d+[\)\.]\s*/, '');
+        // Apply bold within list items
+        itemText = itemText.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        result.push('<li>' + itemText + '</li>');
+      }
+      // Bullet points
+      else if (/^[-•]\s+/.test(trimmed)) {
+        if (inList && listType !== 'ul') {
+          result.push('</' + listType + '>');
+          inList = false;
+        }
+        if (!inList) {
+          result.push('<ul class="q2r-bullet-list">');
+          inList = true;
+          listType = 'ul';
+        }
+        var itemText = trimmed.replace(/^[-•]\s+/, '');
+        // Apply bold within list items
+        itemText = itemText.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        result.push('<li>' + itemText + '</li>');
+      }
+      // Regular line
+      else {
+        if (inList) {
+          result.push('</' + listType + '>');
+          inList = false;
+        }
+        // Apply bold/italic
+        var processed = line.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        processed = processed.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+        // Clean up orphans
+        processed = processed.replace(/\*\*[^<]*$/g, '');
+        processed = processed.replace(/\*[^<]*$/g, '');
+        result.push(processed);
+      }
+    });
+
+    // Close any open list
+    if (inList) {
+      result.push('</' + listType + '>');
+    }
+
+    return result.join('\n');
   };
 
   // Storage helpers

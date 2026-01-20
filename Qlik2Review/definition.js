@@ -17,8 +17,8 @@ define([], function() {
             label: 'AI Provider',
             defaultValue: 'openai',
             options: [
-              { value: 'openai', label: 'OpenAI (GPT-4)' },
-              { value: 'anthropic', label: 'Anthropic (Claude)' },
+              { value: 'openai', label: 'OpenAI' },
+              { value: 'anthropic', label: 'Anthropic' },
               { value: 'gemini', label: 'Google Gemini' }
             ]
           },
@@ -38,19 +38,13 @@ define([], function() {
             type: 'string',
             label: 'Model',
             defaultValue: '',
-            placeholder: function(layout) {
-              var provider = layout.aiSettings && layout.aiSettings.provider;
-              if (provider === 'anthropic') return 'claude-sonnet-4-5-20250929';
-              if (provider === 'gemini') return 'gemini-2.5-flash';
-              return 'gpt-4.1-2025-04-14';  // OpenAI default
-            },
             expression: 'optional'
           },
           modelHint: {
             component: 'text',
             label: function(layout) {
               var provider = layout.aiSettings && layout.aiSettings.provider;
-              if (provider === 'anthropic') return 'Default: claude-sonnet-4.5';
+              if (provider === 'anthropic') return 'Default: claude-sonnet-4-5-20250514';
               if (provider === 'gemini') return 'Default: gemini-2.5-flash';
               return 'Default: gpt-4.1-2025-04-14';
             }
@@ -185,7 +179,7 @@ define([], function() {
             type: 'string',
             component: 'textarea',
             label: 'Sheet Summary Prompt',
-            defaultValue: 'Synthesize ALL chart data into a comprehensive sheet-level analysis.\nIdentify cross-chart patterns, correlations, and the overall data story.\n\nFORMAT AS:\n📊 Overview: [overview]\n📈 Key Trends: [trends]\n⚠️ Concerns: [concerns]\n💡 Recommendations: [recommendations]\n\nUse **bold** for key numbers. Be QUANTITATIVE.',
+            defaultValue: 'Synthesize ALL chart data into sheet-level analysis. Under 800 chars.\n\nFORMAT:\n📊 Overview:\n[paragraph]\n\n📈 Key Trends:\n[paragraph]\n\n⚠️ Concerns:\n[paragraph]\n\n💡 Recommendations:\n[paragraph]\n\nBe QUANTITATIVE. Use **bold** for numbers. No #, no bullets.',
             rows: 7,
             show: function(layout) {
               return layout.aiSettings && layout.aiSettings.useCustomSheetPrompt;
